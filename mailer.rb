@@ -23,6 +23,10 @@ Pony.options = {
   }
 }
 
+get '/' do
+  redirect to(ENV['REDIRECT_URL'])
+end
+
 post '/' do
   email = ""
   params.each do |value|
@@ -32,7 +36,8 @@ post '/' do
   Pony.mail(
     :to => ENV['EMAIL_RECIPIENTS'],
     :from => ENV['EMAIL_FROM'],
-    :subject => "New Contact Form (#{ENV['HOME']})",
+    :subject => "New Contact Form: (#{ENV['REDIRECT_URL']})",
     :body => email
   )
+  redirect to(ENV['REDIRECT_URL'])
 end

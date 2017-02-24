@@ -23,10 +23,6 @@ Pony.options = {
   }
 }
 
-get '/' do
-  redirect to(ENV['HOME'])
-end
-
 post '/' do
   email = ""
   params.each do |value|

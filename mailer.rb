@@ -24,7 +24,7 @@ Pony.options = {
 }
 
 get '/' do
-  redirect ENV['HOME']
+  redirect to(ENV['HOME'])
 end
 
 post '/' do

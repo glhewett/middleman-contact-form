@@ -8,9 +8,7 @@ before do
 end
 
 # whitelist should be a space separated list of URLs
-whitelist = ENV['whitelist'].split
-
-set :protection, :origin_whitelist => whitelist
+set :protection, :origin_whitelist => ENV['WHITELIST'].split
 
 Pony.options = {
   :via => :smtp,
@@ -26,7 +24,7 @@ Pony.options = {
 }
 
 get '/' do
-  'you have reached the test!'
+  redirect ENV['HOME'] || 'http://www.google.com'
 end
 
 post '/' do
@@ -36,9 +34,9 @@ post '/' do
   end
   puts email
   Pony.mail(
-    :to => ENV['email_recipients'],
-    :from => 'noreply@example.com',
-    :subject => 'New Contact Form',
+    :to => ENV['EMAIL_RECIPIENTS'],
+    :from => ENV['EMAIL_FROM'],
+    :subject => "New Contact Form (#{ENV['HOME']})",
     :body => email
   )
 end
